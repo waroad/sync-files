@@ -47,7 +47,7 @@ main() {
     git checkout $currentBranch
     checkOrAddSyncIgnore
     git diff source/${SYNC_BRANCH_NAME} -R | git apply
-    git add $(git ls-tree --name-only -r source/${SYNC_BRANCH_NAME} | grep -E "${REGEX}")
+    git add $(git ls-tree --name-only -r source/${SYNC_BRANCH_NAME} | grep -F "${REGEX}")
     git restore -- ${SYNC_IGNORE_FILE_NAME}
     for deletedFile in $deletedFiles; do
         {
