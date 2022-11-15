@@ -35,6 +35,7 @@ createCommitMessage() {
 }
 
 main() {
+    git diff --color > foo.txt
     pushd "${WORKING_DIRECTORY}"
     git config --global user.email ${AUTHOR_EMAIL}
     git config --global user.name ${AUTHOR_NAME}
