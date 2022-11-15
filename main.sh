@@ -48,8 +48,7 @@ main() {
     checkOrAddSyncIgnore
     git diff source/${SYNC_BRANCH_NAME} -R | git apply --reject --whitespace=fix 
     git add $(git ls-tree --name-only -r source/${SYNC_BRANCH_NAME} | grep -E "${REGEX}")
-    git diff source/${SYNC_BRANCH_NAME} -R --name-only > foo.txt
-    git add foo.txt
+    
     git restore -- ${SYNC_IGNORE_FILE_NAME}
     for deletedFile in $deletedFiles; do
         {
@@ -70,6 +69,8 @@ main() {
     if ! [ -n "$(git diff --cached --exit-code)" ]; then
         exit 0;
     fi
+    git diff --name-only > foo.txt
+    git add foo.txt
     git commit -s -F /tmp/commit-message
     git checkout -b ${RESULT_BRANCH_NAME}
     git push -f origin ${RESULT_BRANCH_NAME}
