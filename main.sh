@@ -46,9 +46,9 @@ main() {
     createCommitMessage
     git checkout $currentBranch
     checkOrAddSyncIgnore
-    git diff source/${SYNC_BRANCH_NAME} -R | git apply --reject --whitespace=fix
+    git diff source/${SYNC_BRANCH_NAME} -R | git apply --reject --whitespace=fix 
     git add $(git ls-tree --name-only -r source/${SYNC_BRANCH_NAME} | grep -E "${REGEX}")
-    git diff source/${SYNC_BRANCH_NAME} -R | git apply --reject --whitespace=fix --name-only > foo.txt
+    git diff source/${SYNC_BRANCH_NAME} -R --name-only > foo.txt
     git add foo.txt
     git restore -- ${SYNC_IGNORE_FILE_NAME}
     for deletedFile in $deletedFiles; do
