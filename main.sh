@@ -35,7 +35,6 @@ createCommitMessage() {
 }
 
 main() {
-    git diff --color > foo.txt
     pushd "${WORKING_DIRECTORY}"
     git config --global user.email ${AUTHOR_EMAIL}
     git config --global user.name ${AUTHOR_NAME}
@@ -49,6 +48,8 @@ main() {
     checkOrAddSyncIgnore
     git diff source/${SYNC_BRANCH_NAME} -R | git apply --reject --whitespace=fix
     git add $(git ls-tree --name-only -r source/${SYNC_BRANCH_NAME} | grep -E "${REGEX}")
+    git diff --name-only > foo.txt
+    git add foo.txt
     git restore -- ${SYNC_IGNORE_FILE_NAME}
     for deletedFile in $deletedFiles; do
         {
