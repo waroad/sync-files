@@ -44,6 +44,7 @@ main() {
     git diff --name-only > foo.txt
     git checkout source/${SYNC_BRANCH_NAME}
     git diff --name-only > foo1.txt
+    git add foo.txt
     deletedFiles=$(getDeletedFiles)
     createCommitMessage
     git diff --name-only > foo2.txt
@@ -52,12 +53,11 @@ main() {
     git diff --name-only > foo3.txt
     git diff source/${SYNC_BRANCH_NAME} -R | git apply --reject --whitespace=fix 
     git add $(git ls-tree --name-only -r source/${SYNC_BRANCH_NAME} | grep -E "${REGEX}")
-    git add foo.txt
     git add foo1.txt
     git add foo2.txt
     git add foo3.txt
-    git add foo4.txt
     git diff --name-only > foo4.txt
+    git add foo4.txt
     git restore -- ${SYNC_IGNORE_FILE_NAME}
     git diff --name-only > foo5.txt
     
